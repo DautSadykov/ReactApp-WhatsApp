@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+main {
+    height: 100vh;
+    width: 100vw;
+    background-color: #242E34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #EAEDEF;
+    font-family: 'Roboto', sans-serif;
+}
+
+.messenger_container {
+    background-color: #131B20;
+    height: 80%;
+    width: 80%;
+    max-width: 1000px;
+    max-height: 600px;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.choose_number_container {
+    width: 40%;
+    border-right: 1px solid #272F33;
+    padding: 1em;
+}
+
+.number_input_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5px 30px;
+}
+
+.number_input_container input {
+    background-color: #272F33;
+    border: none;
+    height: 30px;
+    border-radius: .2em;
+    padding: .2em .6em;
+    color: #a5a8aa;
+    font-size: .8em;
+}
+
+.number_input_container input {
+    outline: none;
+}
+
+.number_input_container button {
+    background-color: #131B20;
+    border: none;
+    color: #a5a8aa;
+    width: 100%;
+    grid-column: 3 / -1;
+}
+
+.number_input_container img {
+    width: 100%;
+}
+
+.send_message_container {
+    width: 60%;
+    padding: 1em;
+    display: grid;
+    grid-template: 10% 1fr 40px / repeat(12, 1fr);
+}
+
+.reciever_info {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: .5em;
+}
+
+.reciever_info h3 {
+    font-weight: 400;
+    color: #a5a8aa;
+}
+
+.enter_message_area {
+    grid-column: 1 / 12;
+    grid-row: 3 / -1;
+    padding: .5em .7em;
+    font-size: 1em;
+    background-color: #242E34;
+    border: none;
+    color: #a5a8aa;
+    border-radius: .2em;
+    caret-color: #eaedef7b;
+}
+
+.enter_message_area:focus {
+    outline: none;
+}
+
+.send_message_button {
+    grid-column: 12 / -1;
+    grid-row: 3 / -1;
+    background-color: #131B20;
+    border: none;
+    color: #EAEDEF;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.message_display_container {
+    grid-column: 1 / 12;
+    grid-row: 2 / 3;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 1em 0;
+}
+
+.sent_message_container {
+    width: 50%;
+    min-height: 60px;
+    background-color: #25594B;
+    align-self: end;
+    border-radius: 1em;
+    border-bottom-right-radius: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    padding: 1em;
+    margin-top: .5em;
+}
+
+
+
