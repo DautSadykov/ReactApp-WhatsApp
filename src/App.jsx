@@ -7,11 +7,13 @@ export default function App() {
   const idInstance = '1101820862'
   const apiTokenInstance = '10735b7e0cb2492db24f66f79e059652a937254ba6b84ee7bf'
 
-  const getMessage = `${host}/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`
+  const getMessageAPI = `${host}/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`
   const sendMessageAPI = `${host}/waInstance${idInstance}/sendMessage/${apiTokenInstance}`
 
+  const sentMessagesData = []
+
   // React.useEffect(() => {
-    //   fetch(getMessage)
+    //   fetch(getMessageAPI)
     //     .then(res => res.json())
     //     .then(data => {
       //       console.log(data.body.messageData)
@@ -19,18 +21,36 @@ export default function App() {
       // })
       
   const [messageText, setMessageText] = React.useState('')
-  const [phoneNumber, setPhoneNumber] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = React.useState('none')
   
-  const message = {
+  const outMessageText = {
     chatId: `${phoneNumber}@c.us`,
     message: messageText
   }
   
   const sendMessageOptions = {
     method: 'POST',
-    body: JSON.stringify(message)
+    body: JSON.stringify(outMessageText)
   }
   
+  const [sentMessages, setSentMessages] = React.useState([
+    {
+      id: 1,
+      text: 'messageText',
+      recieved: true
+    },
+    {
+      id: 2,
+      text: 'messageText',
+      recieved: false
+    },
+    {
+      id: 3,
+      text: 'messageText',
+      recieved: true
+    },
+  ])
+
   function handleMessageChange(event) {
     setMessageText(() => event.target.value)
   }
@@ -38,12 +58,23 @@ export default function App() {
   function handleSendMessage() {
     fetch(sendMessageAPI, sendMessageOptions)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data)
+      setSentMessages((prevSentMessages) => {
+        const newMessage = {
+          id: data.idMessage,
+          text: messageText
+        }
+        return [newMessage, ...prevSentMessages]
+      })
+    })
+    setMessageText(() => '')
+    document.getElementById('enter_message_area').value = ''
   }
 
   function handleChangeNumber() {
-    const inputElement = document.getElementById('pn').value
-    setPhoneNumber(inputElement)
+    const phoneNum = document.getElementById('pn').value
+    setPhoneNumber(phoneNum)
     document.getElementById('pn').value = ''
   }
 
@@ -57,6 +88,7 @@ export default function App() {
           handleMessageChange = {handleMessageChange}
           handleSendMessage = {handleSendMessage}
           phoneNumber = {phoneNumber}
+          sentMessages = {sentMessages}
         />
       </div>
     </main>
