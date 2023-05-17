@@ -6,6 +6,8 @@ export default function ConversationSection(props) {
     const mappedMessages = props.sentMessages.map((message) => 
         <OutgoingMessages
             message = {message.text}
+            key = {message.id}
+            received = {message.received}
         />
     )
   
