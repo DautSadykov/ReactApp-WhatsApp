@@ -25,7 +25,7 @@ main {
     justify-content: space-between;
 }
 
-.choose_number_container {
+.choose_number_section {
     width: 30%;
     border-right: 1px solid #272F33;
     padding: 1em;
@@ -61,6 +61,30 @@ main {
 
 .number_input_container img {
     width: 100%;
+}
+
+.instancetoken_enter_section {
+    padding: 10px 0;
+    width: 100%;
+    display: grid;
+    grid-template: 1fr 1fr / 100px 1fr;
+
+    gap: 1em;
+}
+
+.instancetoken_enter_section input {
+    background-color: #222C32;
+    border: none;
+    width: 80%;
+    color: #a5a8aa;
+}
+
+.instancetoken_enter_section input:focus {
+    outline: none;
+}
+
+.instancetoken_enter_section div {
+    font-size: .8em;
 }
 
 .send_message_container {
