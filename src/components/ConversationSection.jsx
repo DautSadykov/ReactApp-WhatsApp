@@ -12,11 +12,11 @@ export default function ConversationSection(props) {
     )
   
     return (
-    <div className='send_message_container'>
+    <div className='send_message_section'>
         <div className='reciever_info'>
             <h3>Получатель: {props.phoneNumber}</h3>
         </div>
-        <div className="message_display_container">
+        <div className="messages_display_container">
             {mappedMessages}
         </div>
         <input className='enter_message_area' id='enter_message_area' onChange={props.handleMessageChange} type="text" placeholder='Введите сообщение'/>

@@ -1,10 +1,10 @@
 import React from "react";
-import Chatlist from "./components/Chatlist";
+import InfoSection from "./components/InfoSection";
 import ConversationSection from "./components/ConversationSection";
 
 export default function App() {      
   const [messageText, setMessageText] = React.useState('')
-  const [phoneNumber, setPhoneNumber] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = React.useState('none')
   const [messagesData, setMessagesData] = React.useState([])
   const [idInstance, setIdInstance] = React.useState('')
   const [apiTokenInstance, setApiTokenInstance] = React.useState('')
@@ -89,7 +89,7 @@ export default function App() {
   return(
     <main>
       <div className="messenger_container">
-        <Chatlist 
+        <InfoSection 
           handleChangeNumber = {handleChangeNumber}
           handleChangeIdAndToken = {handleChangeIdAndToken}
         />
