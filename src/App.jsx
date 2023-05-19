@@ -4,7 +4,7 @@ import ConversationSection from "./components/ConversationSection";
 
 export default function App() {      
   const [messageText, setMessageText] = React.useState('')
-  const [phoneNumber, setPhoneNumber] = React.useState('none')
+  const [phoneNumber, setPhoneNumber] = React.useState('')
   const [messagesData, setMessagesData] = React.useState([])
   const [idInstance, setIdInstance] = React.useState('')
   const [apiTokenInstance, setApiTokenInstance] = React.useState('')
@@ -25,6 +25,7 @@ export default function App() {
 
   function handleChangeNumber() {
     const phoneNum = document.getElementById('pn').value
+    if (!phoneNum) window.alert('Enter the phone number')
     setPhoneNumber(phoneNum)
     document.getElementById('pn').value = ''
     setMessagesData(() => [])
@@ -33,14 +34,16 @@ export default function App() {
   function handleChangeIdAndToken() {
     const enteredIdInstance = document.getElementById('id_instance').value
     const enteredApiToken = document.getElementById('apitoken').value
-    if (enteredIdInstance && enteredApiToken) {
-      setIdInstance(() => enteredIdInstance)
-      setApiTokenInstance(() => enteredApiToken)
-    } else {
-      console.log('invalid id and token')
+    if (!enteredIdInstance || !enteredApiToken) {
+      window.alert('Enter idInstance и apiTokenInstance')
+      return 1
     }
-    // console.log(idInstance)
-    // console.log(apiTokenInstance)
+    if (enteredIdInstance.length != 10 || enteredApiToken.length != 50) {
+      window.alert('Invalid idInstance или apiTokenInstance')
+      return 1
+    }
+    setIdInstance(() => enteredIdInstance)
+    setApiTokenInstance(() => enteredApiToken)
     document.getElementById('id_instance').value = ''
     document.getElementById('apitoken').value = ''
   }
@@ -48,17 +51,24 @@ export default function App() {
   React.useEffect(() => {
     const fetchMessages = async () => {
       if (idInstance && apiTokenInstance) {
+        console.log(1)
         try {
           const response = await fetch(`https://api.green-api.com/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`);
           const message = await response.json();
+          console.log('message')
           const receivedMessageId = message.receiptId.toString()
+          console.log('receivedMessageId')
+          if (!message?.body?.messageData?.textMessageData?.textMessage) {
+            await fetch(`https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receivedMessageId}`, { method: 'DELETE' })
+            return 1
+          }
           addNewMessage(message.body.messageData.textMessageData.textMessage, receivedMessageId, true)
           await fetch(`https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receivedMessageId}`, { method: 'DELETE' })
         } catch (error) {
-          console.log('No messages yet');
+          console.log(error);
         }
-  
-        setTimeout(fetchMessages, 1000);
+        
+        setTimeout(fetchMessages, 5);
       }
     };
     fetchMessages();
@@ -73,6 +83,12 @@ export default function App() {
     })
     setMessageText(() => '')
     document.getElementById('enter_message_area').value = ''
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      handleSendMessage()
+    }
   }
 
   function addNewMessage(text, id, isReceived) {
@@ -96,6 +112,7 @@ export default function App() {
         <ConversationSection 
           handleMessageChange = {handleMessageChange}
           handleSendMessage = {handleSendMessage}
+          handleKeyPress = {handleKeyPress}
           phoneNumber = {phoneNumber}
           sentMessages = {messagesData}
         />

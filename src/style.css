@@ -27,7 +27,7 @@ main {
     border-right: 1px solid #272F33;
     padding: 1em;
     display: grid;
-    grid-template: 40px 70px / 1fr 60px;
+    grid-template: 30px 70px / 1fr 60px;
     gap: 10px;
 }
 
@@ -111,7 +111,7 @@ main {
 
 @media (max-width: 1000px) {
     .choose_number_section {
-        grid-template: 40px 110px / 1fr 60px;
+        grid-template: 30px 110px / 1fr 60px;
     }
 
     .instance_token_enter_section {
@@ -136,7 +136,7 @@ main {
     grid-row: 1 / 2;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: start;
     padding-left: .5em;
 }
 
@@ -214,5 +214,31 @@ main {
     justify-content: flex-start;
 }
 
+@media (max-width: 650px) {
+    .messenger_container {
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+    }
 
+    .choose_number_section {
+        width: 100%;
+        display: grid;
+        grid-template: 30px 70px / 1fr 60px;
+        gap: 10px;
+    }
+
+    .instance_token_enter_section {
+        grid-column: 1 / 2;
+        grid-row: 2 / -1;
+        width: 100%;
+        display: grid; 
+    }
+
+    .send_message_section {
+        width: 100%;
+        display: grid;
+        grid-template: 10% 1fr 40px / repeat(12, 1fr);
+    }
+}
 
