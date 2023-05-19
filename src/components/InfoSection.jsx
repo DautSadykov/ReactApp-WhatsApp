@@ -4,7 +4,7 @@ export default function InfoSection(props) {
 
   return (
     <div className='choose_number_section'>
-        <input id='pn' type="text" placeholder='Введите номер в формате 79998887766'/>
+        <input id='pn' type="text" placeholder='Enter the number as 79998887766'/>
         <button onClick={props.handleChangeNumber} className='enter_number_button'>
           <img src="plus_icon.svg" alt="" />
         </button>
